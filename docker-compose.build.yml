@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: chembience/postgres-rdkit:${VERSION}
+    build:
+      context: 11/
+      args:
+        build_tag: ${VERSION}
+    depends_on:
+      - rdkit
+
+
+  rdkit:
+    image: chembience/postgres-rdkit-compile:${VERSION}
+    build:
+      context: 11/rdkit
+      args:
+        build_tag: ${VERSION}
+
+
+

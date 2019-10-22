@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+cp chembience-postgres.env .env
+
+cp .env ./11/
+cp .env ./11/rdkit
+

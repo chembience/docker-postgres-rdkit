@@ -1,5 +1,10 @@
 # vim:set ft=dockerfile:
+ARG build_tag
+FROM chembience/postgres-rdkit-compile:$build_tag as rdkit-build
 FROM debian:stretch-slim
+
+ENV RDKIT_SQL=3.8
+
 
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -168,6 +173,11 @@ ENV PGDATA /var/lib/postgresql/data
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA"
 VOLUME /var/lib/postgresql/data
+
+COPY --from=rdkit-build /opt/rdkit/build/Code/PgSQL/rdkit/rdkit--${RDKIT_SQL}.sql /usr/share/postgresql/${PG_MAJOR}/extension
+COPY --from=rdkit-build /opt/rdkit/Code/PgSQL/rdkit/rdkit.control /usr/share/postgresql/${PG_MAJOR}/extension
+COPY --from=rdkit-build /opt/rdkit/build/Code/PgSQL/rdkit/librdkit.so /usr/lib/postgresql/${PG_MAJOR}/lib/rdkit.so
+COPY --from=rdkit-build /usr/lib/x86_64-linux-gnu/libboost_* /usr/lib/x86_64-linux-gnu/
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
