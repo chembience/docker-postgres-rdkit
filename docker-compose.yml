@@ -6,7 +6,7 @@ services:
     image: chembience/postgres-rdkit:${VERSION}
     container_name: chembience-db
     volumes:
-      - db_volume:/var/lib/postgresql
+      - postgres_rdkit_db_volume:/var/lib/postgresql
     restart: always
     networks:
       - sphere
@@ -27,7 +27,7 @@ services:
 #      - REPLICATION_SSLMODE=
 
 volumes:
-  db_volume:
+  postgres_rdkit_db_volume:
 
 networks:
   sphere:
