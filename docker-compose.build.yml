@@ -5,7 +5,7 @@ services:
   postgres:
     image: chembience/postgres-rdkit:${VERSION}
     build:
-      context: 11/
+      context: 12/
       args:
         build_tag: ${VERSION}
     depends_on:
@@ -15,7 +15,7 @@ services:
   rdkit:
     image: chembience/postgres-rdkit-compile:${VERSION}
     build:
-      context: 11/rdkit
+      context: 12/rdkit
       args:
         build_tag: ${VERSION}
 

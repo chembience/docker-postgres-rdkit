@@ -1,7 +1,7 @@
 # vim:set ft=dockerfile:
 ARG build_tag
 FROM chembience/postgres-rdkit-compile:$build_tag as rdkit-build
-FROM debian:stretch-slim
+FROM debian:buster-slim
 
 ENV RDKIT_SQL=3.8
 
@@ -87,13 +87,8 @@ RUN set -ex; \
 	rm -rf "$GNUPGHOME"; \
 	apt-key list
 
-<<<<<<< HEAD:9.4/Dockerfile
-ENV PG_MAJOR 9.4
-ENV PG_VERSION 9.4.26-2.pgdg90+1
-=======
 ENV PG_MAJOR 13
 ENV PG_VERSION 13.1-1.pgdg100+1
->>>>>>> postgres/master:13/Dockerfile
 
 RUN set -ex; \
 	\
