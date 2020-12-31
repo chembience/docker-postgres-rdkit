@@ -27,19 +27,27 @@ RUN set -eux; \
 	chown -R postgres:postgres /var/lib/postgresql
 
 # grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.11
-RUN set -x \
-	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
-	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-	&& wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-	&& { command -v gpgconf > /dev/null && gpgconf --kill all || :; } \
-	&& rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true \
-	&& apt-get purge -y --auto-remove ca-certificates wget
+# https://github.com/tianon/gosu/releases
+ENV GOSU_VERSION 1.12
+RUN set -eux; \
+	savedAptMark="$(apt-mark showmanual)"; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends ca-certificates wget; \
+	rm -rf /var/lib/apt/lists/*; \
+	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
+	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
+	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
+	export GNUPGHOME="$(mktemp -d)"; \
+	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
+	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
+	gpgconf --kill all; \
+	rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc; \
+	apt-mark auto '.*' > /dev/null; \
+	[ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; \
+	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+	chmod +x /usr/local/bin/gosu; \
+	gosu --version; \
+	gosu nobody true
 
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
 RUN set -eux; \
@@ -49,16 +57,20 @@ RUN set -eux; \
 		sed -ri '/\/usr\/share\/locale/d' /etc/dpkg/dpkg.cfg.d/docker; \
 		! grep -q '/usr/share/locale' /etc/dpkg/dpkg.cfg.d/docker; \
 	fi; \
-	apt-get update; apt-get install -y locales; rm -rf /var/lib/apt/lists/*; \
+	apt-get update; apt-get install -y --no-install-recommends locales; rm -rf /var/lib/apt/lists/*; \
 	localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
 # install "nss_wrapper" in case we need to fake "/etc/passwd" and "/etc/group" (especially for OpenShift)
 # https://github.com/docker-library/postgres/issues/359
 # https://cwrap.org/nss_wrapper.html
-RUN set -eux; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends libnss-wrapper; \
+		libnss-wrapper \
+# install "xz-utils" for .sql.xz docker-entrypoint-initdb.d files
+		xz-utils \
+	; \
 	rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /docker-entrypoint-initdb.d
@@ -85,7 +97,7 @@ RUN set -ex; \
 	\
 	dpkgArch="$(dpkg --print-architecture)"; \
 	case "$dpkgArch" in \
-		amd64|arm64|i386|ppc64el) \
+		amd64 | arm64 | i386 | ppc64el) \
 # arches officialy built by upstream
 			echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main $PG_MAJOR" > /etc/apt/sources.list.d/pgdg.list; \
 			apt-get update; \
@@ -140,9 +152,9 @@ RUN set -ex; \
 			;; \
 	esac; \
 	\
-	apt-get install -y postgresql-common; \
+	apt-get install -y --no-install-recommends postgresql-common; \
 	sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf; \
-	apt-get install -y \
+	apt-get install -y --no-install-recommends \
 		"postgresql-$PG_MAJOR=$PG_VERSION" \
 	; \
 	\
@@ -181,6 +193,36 @@ COPY --from=rdkit-build /usr/lib/x86_64-linux-gnu/libboost_* /usr/lib/x86_64-lin
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
+
+# We set the default STOPSIGNAL to SIGINT, which corresponds to what PostgreSQL
+# calls "Fast Shutdown mode" wherein new connections are disallowed and any
+# in-progress transactions are aborted, allowing PostgreSQL to stop cleanly and
+# flush tables to disk, which is the best compromise available to avoid data
+# corruption.
+#
+# Users who know their applications do not keep open long-lived idle connections
+# may way to use a value of SIGTERM instead, which corresponds to "Smart
+# Shutdown mode" in which any existing sessions are allowed to finish and the
+# server stops when all sessions are terminated.
+#
+# See https://www.postgresql.org/docs/12/server-shutdown.html for more details
+# about available PostgreSQL server shutdown signals.
+#
+# See also https://www.postgresql.org/docs/12/server-start.html for further
+# justification of this as the default value, namely that the example (and
+# shipped) systemd service files use the "Fast Shutdown mode" for service
+# termination.
+#
+STOPSIGNAL SIGINT
+#
+# An additional setting that is recommended for all users regardless of this
+# value is the runtime "--stop-timeout" (or your orchestrator/runtime's
+# equivalent) for controlling how long to wait between sending the defined
+# STOPSIGNAL and sending SIGKILL (which is likely to cause data corruption).
+#
+# The default in most runtimes (such as Docker) is 10 seconds, and the
+# documentation at https://www.postgresql.org/docs/12/server-start.html notes
+# that even 90 seconds may not be long enough in many instances.
 
 EXPOSE 5432
 CMD ["postgres"]

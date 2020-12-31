@@ -2,7 +2,7 @@
 set -eu
 
 declare -A aliases=(
-	[12]='latest'
+	[13]='latest'
 	[9.6]='9'
 )
 
@@ -80,8 +80,14 @@ for version in "${versions[@]}"; do
 		versionAliases+=( $fullVersion )
 		fullVersion="${fullVersion%[.-]*}"
 	done
+	# skip unadorned "version" on prereleases: https://www.postgresql.org/developer/beta/
+	# - https://github.com/docker-library/postgres/issues/662
+	# - https://github.com/docker-library/postgres/issues/784
+	case "$pgdgVersion" in
+		*alpha* | *beta*| *rc*) ;;
+		*) versionAliases+=( $version ) ;;
+	esac
 	versionAliases+=(
-		$version
 		${aliases[$version]:-}
 	)
 

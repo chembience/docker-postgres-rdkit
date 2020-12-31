@@ -17,9 +17,9 @@ ENV LANG en_US.utf8
 
 RUN mkdir /docker-entrypoint-initdb.d
 
-ENV PG_MAJOR 10
-ENV PG_VERSION 10.15
-ENV PG_SHA256 5956bce0becffa77883c41594c95a23110b94f10cd66a1157e373c3575921f7e
+ENV PG_MAJOR 13
+ENV PG_VERSION 13.1
+ENV PG_SHA256 12345c83b89aa29808568977f5200d6da00f88a035517f925293355432ffe61f
 
 RUN set -eux; \
 	\
@@ -46,6 +46,7 @@ RUN set -eux; \
 		libxml2-dev \
 		libxslt-dev \
 		linux-headers \
+		llvm10-dev clang g++ \
 		make \
 #		openldap-dev \
 		openssl-dev \
@@ -104,6 +105,7 @@ RUN set -eux; \
 		--with-libxml \
 		--with-libxslt \
 		--with-icu \
+		--with-llvm \
 	; \
 	make -j "$(nproc)" world; \
 	make install-world; \
@@ -144,7 +146,6 @@ RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PG
 VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 # We set the default STOPSIGNAL to SIGINT, which corresponds to what PostgreSQL
