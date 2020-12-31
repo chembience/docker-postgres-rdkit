@@ -76,7 +76,7 @@ RUN set -ex; \
 	apt-key list
 
 ENV PG_MAJOR 12
-ENV PG_VERSION 12.0-2.pgdg100+1
+ENV PG_VERSION 12.5-1.pgdg100+1
 
 RUN set -ex; \
 	\
@@ -85,7 +85,7 @@ RUN set -ex; \
 	\
 	dpkgArch="$(dpkg --print-architecture)"; \
 	case "$dpkgArch" in \
-		amd64|i386|ppc64el) \
+		amd64|arm64|i386|ppc64el) \
 # arches officialy built by upstream
 			echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main $PG_MAJOR" > /etc/apt/sources.list.d/pgdg.list; \
 			apt-get update; \
