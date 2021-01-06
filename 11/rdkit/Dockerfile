@@ -2,8 +2,9 @@ ARG rdkit_branch
 FROM debian:buster
 LABEL maintainer="markus.sitzmann@gmail.com"
 
+ARG rdkit_branch
+
 ENV PG_VERSION=11
-#ENV RDKIT_BRANCH="Release_2019_09_3"
 
 ENV RDBASE="/opt/rdkit"
 ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$RDBASE/lib:/usr/lib/x86_64-linux-gnu"

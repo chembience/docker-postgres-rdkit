@@ -9,9 +9,9 @@ services:
       context: 13/
       args:
         build_tag: ${BUILD_TAG_13}
+        rdkit_sql: ${RDKIT_SQL_13}
     depends_on:
       - rdkit-13
-
 
   rdkit-13:
       image: chembience/postgres-rdkit-compile:${BUILD_TAG_13}
@@ -28,9 +28,9 @@ services:
       context: 12/
       args:
         build_tag: ${BUILD_TAG_12}
+        rdkit_sql: ${RDKIT_SQL_12}
     depends_on:
       - rdkit-12
-
 
   rdkit-12:
     image: chembience/postgres-rdkit-compile:${BUILD_TAG_12}
@@ -40,5 +40,23 @@ services:
         build_tag: ${BUILD_TAG_12}
         rdkit_branch: ${RDKIT_BRANCH_12}
 
+
+  postgres-rdkit-11:
+    image: chembience/postgres-rdkit:${BUILD_TAG_11}
+    build:
+      context: 11/
+      args:
+        build_tag: ${BUILD_TAG_11}
+        rdkit_sql: ${RDKIT_SQL_11}
+    depends_on:
+      - rdkit-11
+
+  rdkit-11:
+    image: chembience/postgres-rdkit-compile:${BUILD_TAG_11}
+    build:
+      context: 11/rdkit
+      args:
+        build_tag: ${BUILD_TAG_11}
+        rdkit_branch: ${RDKIT_BRANCH_11}
 
 
