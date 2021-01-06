@@ -187,6 +187,8 @@ ENV PGDATA /var/lib/postgresql/data
 RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA"
 VOLUME /var/lib/postgresql/data
 
+RUN apt-get update && apt-get install -y --no-install-recommends libfreetype6-dev;
+
 COPY --from=rdkit-build /opt/rdkit/build/Code/PgSQL/rdkit/rdkit--${RDKIT_SQL}.sql /usr/share/postgresql/${PG_MAJOR}/extension
 COPY --from=rdkit-build /opt/rdkit/Code/PgSQL/rdkit/rdkit.control /usr/share/postgresql/${PG_MAJOR}/extension
 COPY --from=rdkit-build /opt/rdkit/build/Code/PgSQL/rdkit/librdkit.so /usr/lib/postgresql/${PG_MAJOR}/lib/rdkit.so

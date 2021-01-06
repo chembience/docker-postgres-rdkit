@@ -1,9 +1,9 @@
-ARG rdkit_branch
 FROM debian:buster
 LABEL maintainer="markus.sitzmann@gmail.com"
 
-ENV PG_VERSION=11
-#ENV RDKIT_BRANCH="Release_2019_09_3"
+ARG rdkit_branch
+
+ENV PG_VERSION=12
 
 ENV RDBASE="/opt/rdkit"
 ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$RDBASE/lib:/usr/lib/x86_64-linux-gnu"
@@ -17,7 +17,6 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
     zlib1g-dev \
     postgresql-server-dev-all \
     postgresql-client-${PG_VERSION} \
-    postgresql-plpython-${PG_VERSION} \
     postgresql-plpython3-${PG_VERSION} \
     libboost-dev \
     libboost-system1.67-dev \

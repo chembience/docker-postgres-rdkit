@@ -2,7 +2,8 @@
 set -e
 
 ./env-prepare
-./update.sh
+#./update.sh
 
 docker-compose -f ./docker-compose.build.yml build
+
 

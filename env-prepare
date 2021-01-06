@@ -3,6 +3,12 @@ set -e
 
 cp chembience-postgres-rdkit.env .env
 
+cp .env ./13/
+cp .env ./13/rdkit
+
+cp .env ./12/
+cp .env ./12/rdkit
+
 cp .env ./11/
 cp .env ./11/rdkit
 

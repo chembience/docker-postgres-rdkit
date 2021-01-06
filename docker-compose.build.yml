@@ -2,22 +2,43 @@ version: '3'
 
 services:
 
-  postgres:
-    image: chembience/postgres-rdkit:${VERSION}
+
+  postgres-rdkit-13:
+    image: chembience/postgres-rdkit:${BUILD_TAG_13}
+    build:
+      context: 13/
+      args:
+        build_tag: ${BUILD_TAG_13}
+    depends_on:
+      - rdkit-13
+
+
+  rdkit-13:
+      image: chembience/postgres-rdkit-compile:${BUILD_TAG_13}
+      build:
+        context: 13/rdkit
+        args:
+          build_tag: ${BUILD_TAG_13}
+          rdkit_branch: ${RDKIT_BRANCH_13}
+
+
+  postgres-rdkit-12:
+    image: chembience/postgres-rdkit:${BUILD_TAG_12}
     build:
       context: 12/
       args:
-        build_tag: ${VERSION}
+        build_tag: ${BUILD_TAG_12}
     depends_on:
-      - rdkit
+      - rdkit-12
 
 
-  rdkit:
-    image: chembience/postgres-rdkit-compile:${VERSION}
+  rdkit-12:
+    image: chembience/postgres-rdkit-compile:${BUILD_TAG_12}
     build:
       context: 12/rdkit
       args:
-        build_tag: ${VERSION}
+        build_tag: ${BUILD_TAG_12}
+        rdkit_branch: ${RDKIT_BRANCH_12}
 
 
 
