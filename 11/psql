@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+source .env
+
+if [ $# -eq 0 ]
+  then
+    docker-compose exec postgres-11 psql -h postgres-11 -U postgres postgres
+  else
+    docker-compose exec postgres-11 psql -h postgres-11 -U postgres postgres $1
+fi
+

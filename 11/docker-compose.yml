@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+
+  postgres-11:
+    image: chembience/postgres-rdkit:postgres-11.rdkit-2019.09
+    container_name: postgres-rdkit-11
+    volumes:
+      - postgres_rdkit_db_volume:/var/lib/postgresql
+    networks:
+      - sphere
+    environment:
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+
+volumes:
+  postgres_rdkit_db_volume:
+
+networks:
+  sphere:

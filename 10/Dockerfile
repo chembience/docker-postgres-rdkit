@@ -68,6 +68,7 @@ RUN set -eux; \
 # https://cwrap.org/nss_wrapper.html
 		libnss-wrapper \
 		libfreetype6 \
+		libicu63 \
 # install "xz-utils" for .sql.xz docker-entrypoint-initdb.d files
 		xz-utils \
 	; \

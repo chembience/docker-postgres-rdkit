@@ -16,7 +16,7 @@ declare -A debianSuite=(
 	[9.5]='stretch-slim'
 	[9.6]='stretch-slim'
 	[10]='stretch-slim'
-	[11]='stretch-slim'
+	[11]='buster-slim'
 )
 defaultAlpineVersion='3.12'
 declare -A alpineVersion=(
