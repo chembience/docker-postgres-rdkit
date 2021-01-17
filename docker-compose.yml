@@ -2,29 +2,16 @@ version: '3'
 
 services:
 
-  db:
-    image: chembience/postgres-rdkit:${VERSION}
-    container_name: chembience-db
+  postgres:
+    image: chembience/postgres-rdkit:postgres-13.rdkit-2020.09
+    container_name: postgres-rdkit-13
     volumes:
       - postgres_rdkit_db_volume:/var/lib/postgresql
-    restart: always
     networks:
       - sphere
     environment:
-      -  POSTGRES_PASSWORD=test123
-#      - DEBUG=false
-#      - CHEMBIENCE_VERSION
-#      - CHEMBIENCE_UID
-#      - CHEMBIENCE_GID
-#      - DB_USER=${CHEMBIENCE_DB_USER}
-#      - DB_PASS=${CHEMBIENCE_DB_PASSWORD}
-#      - DB_NAME=${CHEMBIENCE_DB_USER}
-#      - DB_TEMPLATE=
-#      - DB_EXTENSION=rdkit
-#      - REPLICATION_MODE=
-#      - REPLICATION_USER=
-#      - REPLICATION_PASS=
-#      - REPLICATION_SSLMODE=
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
 
 volumes:
   postgres_rdkit_db_volume:
