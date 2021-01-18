@@ -52,7 +52,7 @@ jobs:
         run: ./env-prepare
 
       - name: Build image
-        run: docker-compose --file docker-compose.build.yml build postgres-rdkit-13
+        run: docker-compose --file docker-compose.build.yml build rdkit-13
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
