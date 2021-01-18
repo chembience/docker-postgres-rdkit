@@ -48,6 +48,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Prepare env
+        run: ./env-prepare
+
       - name: Build image
         run: docker-compose --file docker-compose.build.yml build postgres-rdkit-13
 
