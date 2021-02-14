@@ -6,7 +6,7 @@ services:
     image: chembience/postgres-rdkit:postgres-12.rdkit-2020.03
     container_name: postgres-rdkit-12
     volumes:
-      - postgres_rdkit_db_volume:/var/lib/postgresql
+      - postgres_rdkit_db_volume_12:/var/lib/postgresql
     networks:
       - sphere
     environment:
@@ -14,7 +14,7 @@ services:
       - POSTGRES_USER
 
 volumes:
-  postgres_rdkit_db_volume:
+  postgres_rdkit_db_volume_12:
 
 networks:
   sphere:

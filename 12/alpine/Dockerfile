@@ -1,5 +1,5 @@
 # vim:set ft=dockerfile:
-FROM alpine:3.12
+FROM alpine:3.13
 
 # 70 is the standard uid/gid for "postgres" in Alpine
 # https://git.alpinelinux.org/aports/tree/main/postgresql/postgresql.pre-install?h=3.12-stable
@@ -18,8 +18,8 @@ ENV LANG en_US.utf8
 RUN mkdir /docker-entrypoint-initdb.d
 
 ENV PG_MAJOR 12
-ENV PG_VERSION 12.5
-ENV PG_SHA256 bd0d25341d9578b5473c9506300022de26370879581f5fddd243a886ce79ff95
+ENV PG_VERSION 12.6
+ENV PG_SHA256 df7dd98d5ccaf1f693c7e1d0d084e9fed7017ee248bba5be0167c42ad2d70a09
 
 RUN set -eux; \
 	\
