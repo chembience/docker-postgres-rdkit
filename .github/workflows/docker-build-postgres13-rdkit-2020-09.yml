@@ -59,6 +59,7 @@ jobs:
 
       - name: Push image
         run: |
+           docker-compose --file docker-compose.build.yml push postgres-rdkit-13
 #          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
 #
 #          # Change all uppercase to lowercase
@@ -77,6 +78,5 @@ jobs:
 #          echo VERSION=$VERSION
 #
 #          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-#          docker push $IMAGE_ID:$VERSION
-
-           docker-compose --file docker-compose.build.yml push postgres-rdkit-13
+#          docker push $IMAGE_ID:$VERSION 
+          
