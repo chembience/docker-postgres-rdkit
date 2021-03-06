@@ -2,9 +2,9 @@
 
 2021-03-06, markus.sitzmann@gmail.com
 
-This repository is a fork of the [Docker "Official Image"](https://github.com/docker-library/official-images#what-are-official-images) for [`postgres`](https://hub.docker.com/_/postgres/).
-It adds builds of the Postgres [RDKit](https:/github.com/rdkit/rdkit) extension module. The project has been created as 
-component of the [Chembience](https://github/chembience/chembience), however, can be used for local Docker image builds 
+This repository is a fork of the [Docker "Official Image"](https://github.com/docker-library/postgres) for [`postgres`](https://hub.docker.com/_/postgres/).
+It adds builds of the Postgres [RDKit](https://github.com/rdkit/rdkit) extension module. The project has been created as 
+component of the [Chembience](https://github.com/chembience/chembience), however, can be used for local Docker image builds 
 independently of the Chembience setup . Additionally, the following ready-to-use Docker image
 builds are made available at [Dockerhub](https://hub.docker.com/r/chembience/postgres-rdkit/tags?page=1&ordering=last_updated):
 
