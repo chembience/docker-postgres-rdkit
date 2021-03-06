@@ -30,11 +30,11 @@ jobs:
           username: "markussitzmann"
           password: ${{ secrets.DOCKER_PASSWD }}
 
-      - name: Build Postgres 13 Image
-        run: docker-compose --file docker-compose.build.yml build rdkit-13 postgres-rdkit-13
+      - name: Build Postgres 11 Image
+        run: docker-compose --file docker-compose.build.yml build rdkit-11 postgres-rdkit-11
 
       - name: Push Image
         run: |
-           docker-compose --file docker-compose.build.yml push postgres-rdkit-13
+           docker-compose --file docker-compose.build.yml push postgres-rdkit-11
 
           
