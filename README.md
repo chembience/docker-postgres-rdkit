@@ -34,8 +34,8 @@ target, e.g. postgres-rdkit-13:
 
 ## How to configure the database
 
-There are no particular changes made with regard to Postgres compared to the parent version of this GitHub repository. 
-Hence, it can be configured the way it is described at [the official-images repository](https://github.com/docker-library/official-images/blob/master/library/postgres).
+There are no particular changes made with regard to Postgres in comparison to the parent version of this GitHub repository. 
+Hence, it can be configured the way it is described at [the official-images repository](https://hub.docker.com/_/postgres/).
 
 ## How to start a database instance and use the RDKit extension
 
@@ -48,8 +48,9 @@ start the database with docker-compose:
 cd 13
 docker-compose up 
 ```
-You can access the database with the psql script there for testing (the password is "Postgres0"):
-```shell script
+You can access the database with the psql script there for testing (the password for this test project is set 
+to "Postgres0"):
+```
 ./psql
 Password for user postgres: 
 psql (13.2 (Debian 13.2-1.pgdg100+1))
