@@ -5,8 +5,8 @@ source .env
 
 if [ $# -eq 0 ]
   then
-    docker-compose exec postgres-11 psql -h postgres-11 -U postgres postgres
+    docker-compose exec postgres-11 psql -h postgres-11 -U ${POSTGRES_USER} ${POSTGRES_USER}
   else
-    docker-compose exec postgres-11 psql -h postgres-11 -U postgres postgres $1
+    docker-compose exec postgres-11 psql -h postgres-11 -U ${POSTGRES_USER} ${POSTGRES_USER} $1
 fi
 
