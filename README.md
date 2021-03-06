@@ -1,12 +1,11 @@
 # Chembience Docker Postgres RDKit Module 
 
-2021-03-06, markus.sitzmann@gmail.com
 
-This repository is a fork of the [Docker "Official Image"](https://github.com/docker-library/postgres) for [`postgres`](https://hub.docker.com/_/postgres/).
-It adds builds of the Postgres [RDKit](https://github.com/rdkit/rdkit) extension module. The project has been created as 
-component of the [Chembience](https://github.com/chembience/chembience), however, can be used for local Docker image builds 
-independently of the Chembience setup . Additionally, the following ready-to-use Docker image
-builds are made available at [Dockerhub](https://hub.docker.com/r/chembience/postgres-rdkit/tags?page=1&ordering=last_updated):
+This repository is a fork of the [Docker "Official Image"](https://github.com/docker-library/official-images#what-are-official-images) 
+for [`postgres`](https://hub.docker.com/_/postgres/). It adds builds of the Postgres [RDKit](https://github.com/rdkit/rdkit) 
+extension module. The project has been created as component of the [Chembience](https://github.com/chembience/chembience), 
+however, can be used for local Docker image builds independently of the Chembience setup . Additionally, the following 
+ready-to-use Docker image builds are made available at [Dockerhub](https://hub.docker.com/r/chembience/postgres-rdkit/tags?page=1&ordering=last_updated):
 
 |  Postgres | RDKit extension  | Docker Image                                                     | Build Status
 |-----------|------------------|------------------------------------------------------------------|--------------
@@ -69,6 +68,11 @@ POSTGRES_USER=postgres
 to the .env file of your docker-compose.yml project file. For further configuration details read the section above
 or read the README of the original project.
 
+-----
+
+2021-03-06, markus.sitzmann@gmail.com
+
+-----
 
 ## Original README as provided by the source project of this fork:
 
