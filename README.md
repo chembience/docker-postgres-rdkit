@@ -5,7 +5,7 @@ This repository is a fork of the [Docker "Official Image"](https://github.com/do
 for [`postgres`](https://hub.docker.com/_/postgres/). It adds builds for the Postgres [RDKit](https://github.com/rdkit/rdkit) 
 extension module. The project has been created as component of the [Chembience](https://github.com/chembience/chembience), 
 however, can be used for local Docker image builds independently of the Chembience setup. Additionally, the following 
-ready-to-use Docker image builds have been made available at [Dockerhub](https://hub.docker.com/r/chembience/postgres-rdkit/tags?page=1&ordering=last_updated):
+ready-to-pull Docker images have been made available at [Dockerhub](https://hub.docker.com/r/chembience/postgres-rdkit/tags?page=1&ordering=last_updated):
 
 |  Postgres | RDKit extension  | Docker Image                                                     | Build Status
 |-----------|------------------|------------------------------------------------------------------|--------------
