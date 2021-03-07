@@ -5,7 +5,7 @@ This repository is a fork of the [Docker "Official Image"](https://github.com/do
 for [`postgres`](https://hub.docker.com/_/postgres/). It adds builds for the Postgres [RDKit](https://github.com/rdkit/rdkit) 
 extension module. The project has been created as component of the [Chembience](https://github.com/chembience/chembience), 
 however, can be used for local Docker image builds independently of the Chembience setup. Additionally, the following 
-ready-to-use Docker image builds have been made available at [Dockerhub](https://hub.docker.com/r/chembience/postgres-rdkit/tags?page=1&ordering=last_updated):
+ready-to-pull Docker images have been made available at [Dockerhub](https://hub.docker.com/r/chembience/postgres-rdkit/tags?page=1&ordering=last_updated):
 
 |  Postgres | RDKit extension  | Docker Image                                                     | Build Status
 |-----------|------------------|------------------------------------------------------------------|--------------
@@ -15,9 +15,9 @@ ready-to-use Docker image builds have been made available at [Dockerhub](https:/
 
 Currently, only RDKit extension for Postgres 11 and newer are supported and only Debian builds are available.
 
-## How to build to image locally
+## How to build a Docker image locally
 
-Clone the repository, use the Postgres update.sh script and run build script:
+Clone the repository, use the Postgres update.sh script and run the build script:
 
 ```shell script
 git clone https://github.com/chembience/docker-postgres-rdkit-compile
@@ -34,7 +34,7 @@ target, e.g. postgres-rdkit-13:
 ## How to configure the database
 
 There are no particular changes made with regard to Postgres in comparison to the parent version of this GitHub repository. 
-Hence, it can be configured the way it is described at [the official-images repository](https://hub.docker.com/_/postgres/).
+Hence, it should be configurable the way it is described at [the official-images repository](https://hub.docker.com/_/postgres/).
 
 ## How to start a database instance and use the RDKit extension
 
