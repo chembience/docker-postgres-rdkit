@@ -17,7 +17,7 @@ Currently, only RDKit extension for Postgres 11 and newer are supported and only
 
 ## How to build a Docker image locally
 
-Clone the repository, use the Postgres update.sh script and run build script:
+Clone the repository, use the Postgres update.sh script and run the build script:
 
 ```shell script
 git clone https://github.com/chembience/docker-postgres-rdkit-compile
