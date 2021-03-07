@@ -15,7 +15,7 @@ ready-to-use Docker image builds have been made available at [Dockerhub](https:/
 
 Currently, only RDKit extension for Postgres 11 and newer are supported and only Debian builds are available.
 
-## How to build to image locally
+## How to build a Docker image locally
 
 Clone the repository, use the Postgres update.sh script and run build script:
 
@@ -34,7 +34,7 @@ target, e.g. postgres-rdkit-13:
 ## How to configure the database
 
 There are no particular changes made with regard to Postgres in comparison to the parent version of this GitHub repository. 
-Hence, it can be configured the way it is described at [the official-images repository](https://hub.docker.com/_/postgres/).
+Hence, it should be configurable the way it is described at [the official-images repository](https://hub.docker.com/_/postgres/).
 
 ## How to start a database instance and use the RDKit extension
 
