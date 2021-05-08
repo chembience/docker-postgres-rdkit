@@ -2,24 +2,41 @@ version: '3'
 
 services:
 
-
-  postgres-rdkit-13:
-    image: chembience/postgres-rdkit:${BUILD_TAG_13}
+  postgres-13-rdkit-2021-03:
+    image: chembience/postgres-rdkit:${BUILD_TAG_POSTGRES_13_RDKIT_2021_03}
     build:
       context: 13/
       args:
-        build_tag: ${BUILD_TAG_13}
-        rdkit_sql: ${RDKIT_SQL_13}
+        build_tag: ${BUILD_TAG_POSTGRES_13_RDKIT_2021_03}
+        rdkit_sql: ${RDKIT_SQL_2021_03}
     depends_on:
-      - rdkit-13
+      - rdkit-2021-03
 
-  rdkit-13:
-      image: chembience/postgres-rdkit-compile:${BUILD_TAG_13}
+  rdkit-2021-03:
+    image: chembience/postgres-rdkit-compile:${BUILD_TAG_POSTGRES_13_RDKIT_2021_03}
+    build:
+      context: 13/rdkit-2021-03
+      args:
+        build_tag: ${BUILD_TAG_POSTGRES_13_RDKIT_2021_03}
+        rdkit_branch: ${RDKIT_BRANCH_2021_03}
+
+  postgres-13-rdkit-2020-09:
+    image: chembience/postgres-rdkit:${BUILD_TAG_POSTGRES_13_RDKIT_2020_09}
+    build:
+      context: 13/
+      args:
+        build_tag: ${BUILD_TAG_POSTGRES_13_RDKIT_2020_09}
+        rdkit_sql: ${RDKIT_SQL_2020_09}
+    depends_on:
+      - rdkit-2020-09
+
+  rdkit-2020-09:
+      image: chembience/postgres-rdkit-compile:${BUILD_TAG_POSTGRES_13_RDKIT_2020_09}
       build:
-        context: 13/rdkit
+        context: 13/rdkit-2020-09
         args:
-          build_tag: ${BUILD_TAG_13}
-          rdkit_branch: ${RDKIT_BRANCH_13}
+          build_tag: ${BUILD_TAG_POSTGRES_13_RDKIT_2020_09}
+          rdkit_branch: ${RDKIT_BRANCH_2020_09}
 
 
   postgres-rdkit-12:
