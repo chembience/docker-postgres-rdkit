@@ -4,7 +4,7 @@ services:
 
   postgres-13:
     image: chembience/postgres-rdkit:postgres-13.rdkit-2021.03
-    container_name: postgres-rdkit-13
+    container_name: postgres-13-rdkit-2021.03
     volumes:
       - postgres_rdkit_db_volume_13:/var/lib/postgresql
     networks:

@@ -3,15 +3,16 @@
 
 This repository is a fork of the [Docker "Official Image"](https://github.com/docker-library/official-images#what-are-official-images) 
 for [`postgres`](https://hub.docker.com/_/postgres/). It adds builds for the Postgres [RDKit](https://github.com/rdkit/rdkit) 
-extension module. The project has been created as component of the [Chembience](https://github.com/chembience/chembience), 
-however, can be used for local Docker image builds independently of the Chembience setup. Additionally, the following 
+extension module. The project has been created as component of the [Chembience](https://github.com/chembience/chembience) 
+project, however, can be used for local Docker image builds independently of the Chembience setup. Additionally, the following 
 ready-to-pull Docker images have been made available at [Dockerhub](https://hub.docker.com/r/chembience/postgres-rdkit/tags?page=1&ordering=last_updated):
 
-|  Postgres | RDKit extension  | Docker Image                                                     | Build Status
+|  Postgres | RDKit version    | Docker Image                                                     | Build Status
 |-----------|------------------|------------------------------------------------------------------|--------------
-|  13       | 2020.9           |  docker pull chembience/postgres-rdkit:postgres-13.rdkit-2020.09 | [![Docker](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres13-rdkit-2020-09.yml/badge.svg)](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres13-rdkit-2020-09.yml)
-|  12       | 2020.3           |  docker pull chembience/postgres-rdkit:postgres-12.rdkit-2020.03 | [![Docker](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres12-rdkit-2020-03.yml/badge.svg)](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres12-rdkit-2020-03.yml)
-|  11       | 2019.9           |  docker pull chembience/postgres-rdkit:postgres-11.rdkit-2019.09 | [![Docker](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres11-rdkit-2019-09.yml/badge.svg)](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres11-rdkit-2019-09.yml)
+|  13       | 2021.03.1        |  docker pull chembience/postgres-rdkit:postgres-13.rdkit-2021.03 | [![Docker](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres13-rdkit-2021-03.yml/badge.svg)](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres13-rdkit-2021-03.yml)
+|  13       | 2020.09.3        |  docker pull chembience/postgres-rdkit:postgres-13.rdkit-2020.09 | [![Docker](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres13-rdkit-2020-09.yml/badge.svg)](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres13-rdkit-2020-09.yml)
+|  12       | 2020.03.6        |  docker pull chembience/postgres-rdkit:postgres-12.rdkit-2020.03 | [![Docker](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres12-rdkit-2020-03.yml/badge.svg)](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres12-rdkit-2020-03.yml)
+|  11       | 2019.09.3        |  docker pull chembience/postgres-rdkit:postgres-11.rdkit-2019.09 | [![Docker](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres11-rdkit-2019-09.yml/badge.svg)](https://github.com/chembience/docker-postgres-rdkit-compile/actions/workflows/docker-build-postgres11-rdkit-2019-09.yml)
 
 Currently, only RDKit extension for Postgres 11 and newer are supported and only Debian builds are available.
 
@@ -26,9 +27,9 @@ cd docker-postgres-rdkit-compile
 ./build
 ```
 This would build all available Docker images in the table above. In order to build a specific one, add a specific 
-target, e.g. postgres-rdkit-13:
+target, e.g. Postgres 13 with RDKit 2021-03:
  ```shell script
-./build postgres-rdkit-13
+./build postgres-rdkit-2021-03 postgres-13-rdkit-2021-03
 ```
 
 ## How to configure the database
@@ -70,7 +71,7 @@ or read the README of the original project.
 
 -----
 
-2021-03-06, markus.sitzmann@gmail.com
+2021-05-09, markus.sitzmann@gmail.com
 
 -----
 
