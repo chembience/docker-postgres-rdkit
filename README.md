@@ -29,7 +29,7 @@ cd docker-postgres-rdkit-compile
 This would build all available Docker images in the table above. In order to build a specific one, add a specific 
 target, e.g. Postgres 13 with RDKit 2021-03:
  ```shell script
-./build postgres-rdkit-2021-03 postgres-13-rdkit-2021-03
+./build rdkit-2021-03 postgres-13-rdkit-2021-03
 ```
 
 ## How to configure the database
